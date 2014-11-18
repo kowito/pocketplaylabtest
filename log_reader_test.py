@@ -21,5 +21,5 @@ class TestLogReader(unittest.TestCase):
             'response_status' : 200 ,
             'byte' : 78,
         }
-        assert len(self.reader.data) == 5
-        assert  expect == self.reader.data[0]
+        assert len(self.reader.dataset) == 5
+        assert  expect == self.reader.dataset[0]

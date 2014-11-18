@@ -1,9 +1,7 @@
 #!/usr/bin/env python
-
 import re
 from dateutil.parser import parse
-from collections import defaultdict, Counter
-
+from pandas import DataFrame
 
 def to_integer(params):
     try:
@@ -19,11 +17,11 @@ def parse_parameter(params):
 
 class LogReader:
     def __init__(self, filename):
-        self.data = list()
+        self.dataset = list()
         file = open(filename, 'r')
         for row in file.readlines():
             log = row.split()
-            self.data += [
+            self.dataset += [
                 {
                         'date_time' : parse(log[0]),
                         'at' : parse_parameter(log[2]),
@@ -41,10 +39,14 @@ class LogReader:
 
 
 class LogAggregate:
-    def summary(self, dataset, group_by_key, sum_value_keys):
-        dic = defaultdict(Counter)
-        for item in dataset:
-            key = item[group_by_key]
-            vals = {k:item[k] for k in sum_value_keys}
-            dic[key].update(vals)
-        return dic
+    def __init__(self, dataset):
+        self.dataset = DataFrame(dataset)
+
+    def get_median_from_key(self, by_key):
+        return self.dataset.median()[by_key]
+
+    def get_average_from_key(self, by_key):
+        return self.dataset.mean()[by_key]
+
+    def get_median_from_key(self, by_key):
+        return self.dataset.median()[by_key]
