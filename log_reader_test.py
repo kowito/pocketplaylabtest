@@ -20,6 +20,7 @@ class TestLogReader(unittest.TestCase):
             'service_time' : 21,
             'response_status' : 200 ,
             'byte' : 78,
+            'endpoint' : None,
         }
         assert len(self.reader.dataset) == 5
         assert  expect == self.reader.dataset[0]

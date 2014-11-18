@@ -17,15 +17,18 @@ class TestLogAggregate(unittest.TestCase):
         self.assertIsInstance(self.reader.dataset[0], dict)
 
     def test_log_aggregate(self):
+
         assert len(self.reader.dataset) == 5
 
     def test_median(self):
-        assert len(self.reader.dataset) == 5
         aggregator = LogAggregate(self.reader.dataset)
 
-        assert aggregator.get_median_from_key('byte') == 52
-        assert aggregator.get_median_from_key('connection_time') == 2
-        assert aggregator.get_median_from_key('service_time') == 42
+        assert aggregator.get_median(key='byte') == 52
+        assert aggregator.get_median(key='connection_time') == 2
+        assert aggregator.get_median(key='service_time') == 42
+        assert aggregator.get_median(key='service_time') == 42
+        assert aggregator.get_count(key='service_time') == 1
+        
         
 
 
