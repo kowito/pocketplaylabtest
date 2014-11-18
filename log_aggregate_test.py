@@ -22,12 +22,13 @@ class TestLogAggregate(unittest.TestCase):
 
     def test_median(self):
         aggregator = LogAggregate(self.reader.dataset)
-
         assert aggregator.get_median(key='byte') == 52
         assert aggregator.get_median(key='connection_time') == 2
         assert aggregator.get_median(key='service_time') == 42
-        assert aggregator.get_median(key='service_time') == 42
-        assert aggregator.get_count(key='service_time') == 1
+
+    def test_count(self):
+        aggregator = LogAggregate(self.reader.dataset)
+        assert aggregator.get_count(key='service_time') == 5
         
         
 
